@@ -267,4 +267,23 @@ The `grades` table uses a composite primary key made from `student_id` and `subj
 - Usernames must be between 3 and 30 characters.
 - Passwords must contain at least 6 characters.
 
+## Screenshots
+<img width="1920" height="1080" alt="Screenshot (538)" src="https://github.com/user-attachments/assets/f3dc1de7-ee2f-4cc7-a4b2-308945641b14" />
+User Authentication, Registration and Validation
+
+<img width="1920" height="1080" alt="Screenshot (539)" src="https://github.com/user-attachments/assets/35411ea2-7bf0-4c02-8d8c-4d1ccc879b90" />
+Dashboard Overview
+
+<img width="1920" height="1080" alt="Screenshot (540)" src="https://github.com/user-attachments/assets/2ca4821c-7369-426b-958e-1fd11b9c96f7" />
+Input student Information
+
+<img width="1920" height="1080" alt="Screenshot (541)" src="https://github.com/user-attachments/assets/3cae774f-fa05-491e-9d03-ed80175dab56" />
+Student Id validation, Subjects and Grades Information
+
+##Testing
+
+The system was tested through various error-testing scenarios, including user authentication and user validation. We also tested student input validation by entering different ID patterns that did not follow the required `00000-2026` format or valid calendar values. These inputs resulted in errors, confirming that the system’s error handling was effective. Grade validation was also tested by entering values below 0 and above 100, which correctly resulted in errors and confirmed that the value validation was working properly.
+
+We expected the system to prevent errors during user authentication, avoid SQL injection, and provide consistent results when testing the student and grade features. The actual results matched our expectations, showing that the system’s validation and error-handling features worked as intended.
+
 
