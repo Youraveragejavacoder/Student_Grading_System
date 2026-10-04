@@ -287,8 +287,29 @@ Student Id validation, Subjects and Grades Information
 
 ## Testing
 
-The system was tested through various error-testing scenarios, including user authentication and user validation. We also tested student input validation by entering different ID patterns that did not follow the required `00000-2026` format or valid calendar values. These inputs resulted in errors, confirming that the system’s error handling was effective. Grade validation was also tested by entering values below 0 and above 100, which correctly resulted in errors and confirmed that the value validation was working properly.
+The system was tested using multiple validation and error-handling scenarios covering authentication, user registration, student records, and grade records.
 
-We expected the system to prevent errors during user authentication, avoid SQL injection, and provide consistent results when testing the student and grade features. The actual results matched our expectations, showing that the system’s validation and error-handling features worked as intended.
+Authentication testing included empty usernames and passwords, short usernames, short passwords, mismatched passwords, invalid login credentials, and duplicate usernames. These tests produced appropriate validation messages and prevented invalid accounts or unauthorized logins.
+
+Student validation was tested using empty values, invalid Student ID formats, incorrect digit lengths, and IDs that did not end with the current calendar year. The system correctly rejected invalid input. Student IDs must follow the `00000-YYYY` format, and newly added students must use the current year.
+
+Grade validation was tested using empty subjects, duplicate subjects, non-numeric values, scores below 0, and scores above 100. These inputs were rejected as expected, confirming that the system correctly validates grade records.
+
+Database operations were also checked to ensure that student and grade records were added, retrieved, updated, and deleted consistently. SQL queries use parameterized values, which helps protect database operations against SQL injection. When a student is deleted, the system also removes the student’s related grade records.
+
+The expected results were consistent with the actual results. Invalid input was rejected, appropriate error messages were displayed, and valid records were processed correctly. These results show that the system’s validation and basic error-handling features are working as intended.
+
+## Known Issues / Limitations
+
+- User roles are defined in the system, but role assignment is not fully implemented in the registration interface. Newly registered users receive the default admin role unless their role is changed directly in the database.
+- The system does not currently provide a role-management screen for administrators.
+- The Student ID checks the required format and year, but it does not verify whether the first five digits represent an officially assigned student number.
+- The application uses SHA-256 for password hashing without a unique salt or a password-specific hashing algorithm such as bcrypt or Argon2. This is acceptable for a basic academic project but should be improved for production use.
+- There is no automated test suite. Testing is currently performed through manual validation and error-testing scenarios.
+- The database migration system detects some older schemas but may require manual backup or migration when an existing database contains incompatible data.
+- Deletion is permanent. There is no recycle bin, undo feature, or record recovery system.
+- The application does not currently provide data export or import features such as CSV or Excel support.
+- Grade searches are based on Student ID. More advanced filtering by student name, subject, or score range is not currently available.
+- The application depends on the local SQLite database file and does not support multiple users accessing a shared database over a network.
 
 
