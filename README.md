@@ -1,4 +1,8 @@
-# Grading System
+# Student Grading System
+Author: Akiru Gibson O. Guillena
+
+Section: CS26L(3581)
+
 
 ## Project Description
 
@@ -8,13 +12,13 @@ The system addresses the need for a simple and organized alternative to manually
 
 ## Project Objectives
 
-- Provide a clear graphical interface for managing academic records.
-- Store student, grade, and user information in a structured SQLite database.
-- Allow users to create, read, update, delete, and search records.
-- Validate student IDs, names, subjects, scores, and account information.
-- Keep student and grade records consistent through database relationships.
-- Provide dashboard statistics for total students, grade records, and average score.
-- Apply role-based permissions for administrators, teachers, and students.
+- Create a simple interface for managing student records and grades.
+- Store student, grade, and user information in an SQLite database.
+- Allow users to add, view, edit, delete, and search records.
+- Check and validate student IDs, names, subjects, scores, and account details.
+- Keep student and grade records properly connected in the database.
+- Show basic statistics such as the number of students, grade records, and average score.
+- Give different permissions to administrators, teachers, and students.
 
 ## Features
 
@@ -23,7 +27,6 @@ The system addresses the need for a simple and organized alternative to manually
 - User registration with username and password validation.
 - User login and logout.
 - SHA-256 password hashing before passwords are stored.
-- Role information for administrators, teachers, and students.
 
 ### Student Management
 
@@ -267,6 +270,3 @@ The `grades` table uses a composite primary key made from `student_id` and `subj
 - Usernames must be between 3 and 30 characters.
 - Passwords must contain at least 6 characters.
 
-## License
-
-This project is intended for educational and academic use.
