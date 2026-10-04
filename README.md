@@ -267,6 +267,4 @@ The `grades` table uses a composite primary key made from `student_id` and `subj
 - Usernames must be between 3 and 30 characters.
 - Passwords must contain at least 6 characters.
 
-## License
 
-This project is intended for educational and academic use.
