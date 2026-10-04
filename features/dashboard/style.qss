@@ -1,0 +1,88 @@
+* {
+    font-family: 'Segoe UI Variable Display', 'Segoe UI', -apple-system, sans-serif;
+    font-size: 13px;
+}
+
+QMainWindow, QWidget#rootCanvas {
+    background-color: #0A0E17;
+    color: #F8FAFC;
+}
+
+QFrame#cardContainer {
+    background-color: #0F172A;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+}
+
+QFrame#sidebar {
+    background-color: #0F172A;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+}
+
+QFrame#welcomeBanner {
+    background-color: #2563EB;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+QPushButton {
+    background-color: #2563EB;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+QPushButton:hover {
+    background-color: #3B82F6;
+}
+
+QPushButton#refreshBtn {
+    background-color: #1E293B;
+    border: 1px solid #334155;
+    color: #F8FAFC;
+}
+
+QPushButton#refreshBtn:hover {
+    background-color: #334155;
+    color: #38BDF8;
+    border: 1px solid #38BDF8;
+}
+
+QPushButton#bannerBtn {
+    background-color: #FFFFFF;
+    color: #1D4ED8;
+    font-weight: 700;
+}
+
+QPushButton#navButton {
+    background-color: transparent;
+    color: #94A3B8;
+    border-radius: 10px;
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+}
+
+QPushButton#navButton:hover {
+    background-color: #1E293B;
+    color: #38BDF8;
+}
+
+QPushButton#navButton:checked {
+    background-color: #1E293B;
+    color: #38BDF8;
+    border: 1px solid #38BDF8;
+}
+
+QPushButton#dangerButton {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #FCA5A5;
+}
+
+QPushButton#dangerButton:hover {
+    background-color: #EF4444;
+    color: #FFFFFF;
+}

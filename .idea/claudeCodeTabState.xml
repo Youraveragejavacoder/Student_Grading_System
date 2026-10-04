@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ClaudeCodeTabState">
+    <option name="tabSessions">
+      <map>
+        <entry key="0">
+          <value>
+            <TabSessionState>
+              <option name="projectPath" value="C:\Users\User\Project in python" />
+              <option name="provider" value="codex" />
+              <option name="sessionId" value="01a0ec16-0db0-7031-978c-6b7e9af479bc" />
+              <option name="cwd" value="C:\Users\User\Project in python" />
+              <option name="model" value="gpt-5.6-luna" />
+              <option name="permissionMode" value="default" />
+              <option name="reasoningEffort" value="max" />
+            </TabSessionState>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
