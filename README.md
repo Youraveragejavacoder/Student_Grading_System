@@ -270,19 +270,16 @@ The `grades` table uses a composite primary key made from `student_id` and `subj
 ## Screenshots
 <img width="1920" height="1080" alt="Screenshot (538)" src="https://github.com/user-attachments/assets/f3dc1de7-ee2f-4cc7-a4b2-308945641b14" />
 User Authentication, Registration and Validation
-
-
+<br>
 <img width="1920" height="1080" alt="Screenshot (539)" src="https://github.com/user-attachments/assets/35411ea2-7bf0-4c02-8d8c-4d1ccc879b90" />
 Dashboard Overview
-
-
+<br>
 <img width="1920" height="1080" alt="Screenshot (540)" src="https://github.com/user-attachments/assets/2ca4821c-7369-426b-958e-1fd11b9c96f7" />
 Input student Information
-
-
+<br>
 <img width="1920" height="1080" alt="Screenshot (541)" src="https://github.com/user-attachments/assets/3cae774f-fa05-491e-9d03-ed80175dab56" />
 Student Id validation, Subjects and Grades Information
-
+<br>
 
 ## Testing
 
