@@ -301,15 +301,14 @@ The expected results were consistent with the actual results. Invalid input was 
 
 ## Known Issues / Limitations
 
-- User roles are defined in the system, but role assignment is not fully implemented in the registration interface. Newly registered users receive the default admin role unless their role is changed directly in the database.
-- The system does not currently provide a role-management screen for administrators.
-- The Student ID checks the required format and year, but it does not verify whether the first five digits represent an officially assigned student number.
-- The application uses SHA-256 for password hashing without a unique salt or a password-specific hashing algorithm such as bcrypt or Argon2. This is acceptable for a basic academic project but should be improved for production use.
-- There is no automated test suite. Testing is currently performed through manual validation and error-testing scenarios.
-- The database migration system detects some older schemas but may require manual backup or migration when an existing database contains incompatible data.
-- Deletion is permanent. There is no recycle bin, undo feature, or record recovery system.
-- The application does not currently provide data export or import features such as CSV or Excel support.
-- Grade searches are based on Student ID. More advanced filtering by student name, subject, or score range is not currently available.
-- The application depends on the local SQLite database file and does not support multiple users accessing a shared database over a network.
+- User roles exist, but role assignment is not fully implemented during registration. New users are given the admin role by default.
+- There is no role-management page for administrators.
+- Student ID validation checks the format and year but does not confirm if the number is officially assigned.
+- Testing is done manually; there is no automated test system.
+- Database migration may require manual backup or changes if the old data is incompatible.
+- Deleted records cannot be recovered.
+- The system does not support CSV or Excel import/export.
+- Grade searches only use Student ID. Filtering by name, subject, or score is not available.
+- The system uses a local SQLite database and does not support shared network access.
 
 
