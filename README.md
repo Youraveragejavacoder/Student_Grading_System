@@ -290,15 +290,19 @@ Teacher profile names and usernames are kept in this table. The username referen
 <img width="1920" height="1080" alt="Screenshot (593)" src="https://github.com/user-attachments/assets/e7ede6fa-5cdb-4788-aa68-e410971da5ca" />
 
 Authentication
+
 <img width="1920" height="1080" alt="Screenshot (594)" src="https://github.com/user-attachments/assets/dc9161d8-6805-44d5-b19d-cc573415274e" />
 
 Dashboard Overview
+
 <img width="1920" height="1080" alt="Screenshot (595)" src="https://github.com/user-attachments/assets/eb5ba1a4-b6b3-4d6c-8410-e6818706d1de" />
 
 Student Input
+
 <img width="1920" height="1080" alt="Screenshot (596)" src="https://github.com/user-attachments/assets/43a49bc4-75d3-4c83-9f41-087d2ab91a8b" />
 
 Grade Input
+
 <img width="1920" height="1080" alt="Screenshot (597)" src="https://github.com/user-attachments/assets/083149cc-a2e2-4c1e-861a-55752fc285b6" />
 
 Teacher management 
