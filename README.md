@@ -319,8 +319,6 @@ Database operations were also checked to ensure that student and grade records w
 The expected results were consistent with the actual results. Invalid input was rejected, appropriate error messages were displayed, and valid records were processed correctly. These results show that the system’s validation and basic error-handling features are working as intended.
 
 ## Known Issues / Limitations
-
-- User roles exist, but role assignment is not fully implemented during registration. New users are given the admin role by default.
 - There is no role-management page for administrators.
 - Student ID validation checks the format and year but does not confirm if the number is officially assigned.
 - Testing is done manually; there is no automated test system.
