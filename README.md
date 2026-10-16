@@ -286,4 +286,48 @@ Teacher profile names and usernames are kept in this table. The username referen
 - Usernames must be between 3 and 30 characters.
 - Passwords must contain at least 6 characters.
 
+## Screenshots
+<img width="1920" height="1080" alt="Screenshot (538)" src="https://github.com/user-attachments/assets/f3dc1de7-ee2f-4cc7-a4b2-308945641b14" />
+<br><br>
+User Authentication, Registration and Validation
+<br><br>
+<img width="1920" height="1080" alt="Screenshot (539)" src="https://github.com/user-attachments/assets/35411ea2-7bf0-4c02-8d8c-4d1ccc879b90" />
+<br><br>
+Dashboard Overview
+<br><br>
+<img width="1920" height="1080" alt="Screenshot (540)" src="https://github.com/user-attachments/assets/2ca4821c-7369-426b-958e-1fd11b9c96f7" />
+<br><br>
+Input student Information
+<br><br>
+<img width="1920" height="1080" alt="Screenshot (541)" src="https://github.com/user-attachments/assets/3cae774f-fa05-491e-9d03-ed80175dab56" />
+<br><br>
+Student Id validation, Subjects and Grades Information
+<br><br>
+
+## Testing
+
+The system was tested using multiple validation and error-handling scenarios covering authentication, user registration, student records, and grade records.
+
+Authentication testing included empty usernames and passwords, short usernames, short passwords, mismatched passwords, invalid login credentials, and duplicate usernames. These tests produced appropriate validation messages and prevented invalid accounts or unauthorized logins.
+
+Student validation was tested using empty values, invalid Student ID formats, incorrect digit lengths, and IDs that did not end with the current calendar year. The system correctly rejected invalid input. Student IDs must follow the `00000-YYYY` format, and newly added students must use the current year.
+
+Grade validation was tested using empty subjects, duplicate subjects, non-numeric values, scores below 0, and scores above 100. These inputs were rejected as expected, confirming that the system correctly validates grade records.
+
+Database operations were also checked to ensure that student and grade records were added, retrieved, updated, and deleted consistently. SQL queries use parameterized values, which helps protect database operations against SQL injection. When a student is deleted, the system also removes the student’s related grade records.
+
+The expected results were consistent with the actual results. Invalid input was rejected, appropriate error messages were displayed, and valid records were processed correctly. These results show that the system’s validation and basic error-handling features are working as intended.
+
+## Known Issues / Limitations
+
+- User roles exist, but role assignment is not fully implemented during registration. New users are given the admin role by default.
+- There is no role-management page for administrators.
+- Student ID validation checks the format and year but does not confirm if the number is officially assigned.
+- Testing is done manually; there is no automated test system.
+- Database migration may require manual backup or changes if the old data is incompatible.
+- Deleted records cannot be recovered.
+- The system does not support CSV or Excel import/export.
+- Grade searches only use Student ID. Filtering by name, subject, or score is not available.
+- The system uses a local SQLite database and does not support shared network access.
+
 
