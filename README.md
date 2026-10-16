@@ -1,7 +1,4 @@
-# Student Grading System: A
-Python-Based System for
-Grade Calculation and
-Record Management
+# Student Grading System: A Python-Based System for Grade Calculation and Record Management
 
 ## Project Description
 
