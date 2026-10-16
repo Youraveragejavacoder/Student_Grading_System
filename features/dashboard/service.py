@@ -9,6 +9,9 @@ class UIService:
     def get_dashboard_stats(self) -> DashboardStats:
         return self.repository.get_stats()
 
+    def get_student_grade_overview(self):
+        return self.repository.get_student_grade_overview()
+
     def get_permissions_for_role(self, role: UserRole) -> RolePermissions:
         if role == UserRole.ADMIN:
             return RolePermissions(
@@ -23,7 +26,7 @@ class UIService:
         elif role == UserRole.TEACHER:
             return RolePermissions(
                 role=role,
-                can_add_student=False,
+                can_add_student=True,
                 can_update_student=False,
                 can_delete_student=False,
                 can_add_grade=True,

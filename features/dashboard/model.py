@@ -24,3 +24,11 @@ class DashboardStats:
     total_students: int
     total_grades: int
     average_score: float
+
+
+@dataclass
+class StudentGradeRow:
+    student_id: str
+    name: str
+    subject: str
+    score: float | None

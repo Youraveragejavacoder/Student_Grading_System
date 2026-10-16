@@ -56,11 +56,11 @@ class StudentsView(QWidget):
         eyebrow.setObjectName("eyebrowLabel")
         title = QLabel("Students")
         title.setObjectName("pageTitle")
-        subtitle = QLabel("Add, update, and find student records from one focused view.")
-        subtitle.setObjectName("pageSubtitle")
+        self.page_subtitle = QLabel("Add, update, and find student records from one focused view.")
+        self.page_subtitle.setObjectName("pageSubtitle")
         heading_layout.addWidget(eyebrow)
         heading_layout.addWidget(title)
-        heading_layout.addWidget(subtitle)
+        heading_layout.addWidget(self.page_subtitle)
 
         self.record_count = QLabel("0 records")
         self.record_count.setObjectName("recordCount")
@@ -70,20 +70,20 @@ class StudentsView(QWidget):
         header_layout.addWidget(self.record_count, alignment=Qt.AlignmentFlag.AlignTop)
         layout.addLayout(header_layout)
 
-        form_card = QFrame()
-        form_card.setObjectName("formCard")
-        form_layout = QVBoxLayout(form_card)
+        self.form_card = QFrame()
+        self.form_card.setObjectName("formCard")
+        form_layout = QVBoxLayout(self.form_card)
         form_layout.setContentsMargins(18, 17, 18, 17)
         form_layout.setSpacing(12)
 
         form_heading = QHBoxLayout()
         section_title = QLabel("Student details")
         section_title.setObjectName("sectionTitle")
-        form_hint = QLabel("Create a new record or select a row to edit it.")
-        form_hint.setObjectName("helperLabel")
+        self.form_hint = QLabel("Create a new record or select a row to edit it.")
+        self.form_hint.setObjectName("helperLabel")
         form_heading.addWidget(section_title)
         form_heading.addStretch()
-        form_heading.addWidget(form_hint)
+        form_heading.addWidget(self.form_hint)
         form_layout.addLayout(form_heading)
 
         fields_layout = QHBoxLayout()
@@ -102,32 +102,37 @@ class StudentsView(QWidget):
         form_layout.addLayout(fields_layout)
 
         action_layout = QHBoxLayout()
-        action_layout.setSpacing(8)
-        action_layout.addStretch()
+        action_layout.setSpacing(10)
 
         self.add_btn = QPushButton("Add student")
         self.add_btn.setObjectName("primaryButton")
         self.add_btn.clicked.connect(self._add_student)
-        action_layout.addWidget(self.add_btn)
+        self.add_btn.setMinimumHeight(42)
+        action_layout.addWidget(self.add_btn, stretch=3)
 
         self.update_btn = QPushButton("Update")
         self.update_btn.setObjectName("secondaryButton")
         self.update_btn.clicked.connect(self._update_student)
-        action_layout.addWidget(self.update_btn)
+        self.update_btn.setMinimumHeight(42)
+        action_layout.addWidget(self.update_btn, stretch=2)
 
         self.delete_btn = QPushButton("Delete student")
         self.delete_btn.setObjectName("dangerButton")
         self.delete_btn.setToolTip("Permanently delete this student and their related grade records.")
         self.delete_btn.clicked.connect(self._delete_student)
-        action_layout.addWidget(self.delete_btn)
+        self.delete_btn.setMinimumHeight(42)
+        self.delete_btn.setMinimumWidth(118)
+        action_layout.addWidget(self.delete_btn, stretch=2)
 
         clear_btn = QPushButton("Clear")
         clear_btn.setObjectName("ghostButton")
         clear_btn.setToolTip("Clear these form fields without changing saved records.")
         clear_btn.clicked.connect(self._clear_inputs)
-        action_layout.addWidget(clear_btn)
+        clear_btn.setMinimumHeight(42)
+        clear_btn.setMinimumWidth(84)
+        action_layout.addWidget(clear_btn, stretch=1)
         form_layout.addLayout(action_layout)
-        layout.addWidget(form_card)
+        layout.addWidget(self.form_card)
 
         toolbar_card = QFrame()
         toolbar_card.setObjectName("toolbarCard")
@@ -299,6 +304,13 @@ class StudentsView(QWidget):
     def _clear_inputs(self):
         self.student_id_input.clear()
         self.name_input.clear()
+
+    def set_teacher_mode(self):
+        self.page_subtitle.setText("Add students and view the shared student directory.")
+        self.form_hint.setText("Teachers can add students but cannot edit or delete existing records.")
+        self.update_btn.hide()
+        self.delete_btn.hide()
+        self.table.itemClicked.disconnect(self._on_table_click)
 
     def _update_empty_state(self):
         count = self.table.rowCount() if hasattr(self, "table") else 0

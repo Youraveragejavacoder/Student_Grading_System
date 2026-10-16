@@ -56,7 +56,7 @@ class Database:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
                 password TEXT NOT NULL,
-                role TEXT NOT NULL DEFAULT 'admin'
+                role TEXT NOT NULL DEFAULT 'teacher'
             )
             """
         )
@@ -68,6 +68,19 @@ class Database:
             CREATE TABLE students (
                 student_id TEXT PRIMARY KEY,
                 name TEXT NOT NULL
+            )
+            """
+        )
+
+    @staticmethod
+    def _create_teachers_table(conn: sqlite3.Connection) -> None:
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS teachers (
+                teacher_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                name TEXT NOT NULL,
+                FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
             )
             """
         )
@@ -91,18 +104,40 @@ class Database:
     def _ensure_users_table(self, conn: sqlite3.Connection) -> None:
         if not self._table_exists(conn, "users"):
             self._create_users_table(conn)
-            return
+        else:
+            columns = self._table_columns(conn, "users")
+            required = {"username", "password"}
+            if not required.issubset(columns):
+                raise RuntimeError(
+                    "The users table has an unsupported schema. Back up the database "
+                    "before migrating it."
+                )
 
-        columns = self._table_columns(conn, "users")
-        required = {"username", "password"}
-        if not required.issubset(columns):
-            raise RuntimeError(
-                "The users table has an unsupported schema. Back up the database "
-                "before migrating it."
-            )
+            if "role" not in columns:
+                conn.execute("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'teacher'")
 
-        if "role" not in columns:
-            conn.execute("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'admin'")
+        conn.execute(
+            "UPDATE users SET role = 'teacher' "
+            "WHERE role = 'admin' AND username <> 'Admin'"
+        )
+        conn.execute(
+            "UPDATE users SET role = 'admin' WHERE username = 'Admin'"
+        )
+        conn.execute(
+            "UPDATE users SET role = 'teacher' "
+            "WHERE role NOT IN ('admin', 'teacher', 'student')"
+        )
+        conn.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS one_admin_account "
+            "ON users(role) WHERE role = 'admin'"
+        )
+
+    def _ensure_teachers_table(self, conn: sqlite3.Connection) -> None:
+        self._create_teachers_table(conn)
+        conn.execute(
+            "INSERT OR IGNORE INTO teachers (username, name) "
+            "SELECT username, username FROM users WHERE role = 'teacher'"
+        )
 
     def _ensure_students_table(self, conn: sqlite3.Connection) -> None:
         if not self._table_exists(conn, "students"):
@@ -152,6 +187,7 @@ class Database:
             with get_connection(self.db_path) as conn:
                 conn.execute("PRAGMA foreign_keys = OFF")
                 self._ensure_users_table(conn)
+                self._ensure_teachers_table(conn)
                 self._ensure_students_table(conn)
                 self._ensure_grades_table(conn)
                 conn.execute("PRAGMA foreign_keys = ON")

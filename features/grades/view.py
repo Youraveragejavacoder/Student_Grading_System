@@ -99,11 +99,11 @@ class GradesView(QWidget):
         form_heading = QHBoxLayout()
         section_title = QLabel("Grade entry")
         section_title.setObjectName("sectionTitle")
-        form_hint = QLabel("Select a table row to edit an existing score.")
-        form_hint.setObjectName("helperLabel")
+        self.form_hint = QLabel("Select a table row to edit an existing score.")
+        self.form_hint.setObjectName("helperLabel")
         form_heading.addWidget(section_title)
         form_heading.addStretch()
-        form_heading.addWidget(form_hint)
+        form_heading.addWidget(self.form_hint)
         form_layout.addLayout(form_heading)
 
         fields_layout = QHBoxLayout()
@@ -122,30 +122,35 @@ class GradesView(QWidget):
         form_layout.addLayout(fields_layout)
 
         action_layout = QHBoxLayout()
-        action_layout.setSpacing(8)
-        action_layout.addStretch()
+        action_layout.setSpacing(10)
 
         self.add_btn = QPushButton("Add grade")
         self.add_btn.setObjectName("primaryButton")
         self.add_btn.clicked.connect(self._add_grade)
-        action_layout.addWidget(self.add_btn)
+        self.add_btn.setMinimumHeight(42)
+        action_layout.addWidget(self.add_btn, stretch=3)
 
         self.update_btn = QPushButton("Update")
         self.update_btn.setObjectName("secondaryButton")
         self.update_btn.clicked.connect(self._update_grade)
-        action_layout.addWidget(self.update_btn)
+        self.update_btn.setMinimumHeight(42)
+        action_layout.addWidget(self.update_btn, stretch=2)
 
         self.delete_btn = QPushButton("Delete grade")
         self.delete_btn.setObjectName("dangerButton")
         self.delete_btn.setToolTip("Permanently delete this grade record.")
         self.delete_btn.clicked.connect(self._delete_grade)
-        action_layout.addWidget(self.delete_btn)
+        self.delete_btn.setMinimumHeight(42)
+        self.delete_btn.setMinimumWidth(118)
+        action_layout.addWidget(self.delete_btn, stretch=2)
 
         clear_btn = QPushButton("Clear")
         clear_btn.setObjectName("ghostButton")
         clear_btn.setToolTip("Clear these form fields without changing saved records.")
         clear_btn.clicked.connect(self._clear_grade_inputs)
-        action_layout.addWidget(clear_btn)
+        clear_btn.setMinimumHeight(42)
+        clear_btn.setMinimumWidth(84)
+        action_layout.addWidget(clear_btn, stretch=1)
         form_layout.addLayout(action_layout)
         layout.addWidget(form_card)
 
@@ -285,6 +290,15 @@ class GradesView(QWidget):
             self._clear_grade_inputs()
 
         self._update_empty_state()
+
+    def set_role(self, role: str):
+        is_admin = role == "admin"
+        self.delete_btn.setVisible(is_admin)
+        self.delete_btn.setEnabled(is_admin)
+        if role == "teacher":
+            self.form_hint.setText("Teachers can add and update grades.")
+        else:
+            self.form_hint.setText("Select a table row to edit an existing score.")
 
     def _clear_grade_inputs(self):
         self.subject_input.clear()

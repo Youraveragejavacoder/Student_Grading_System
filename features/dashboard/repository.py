@@ -2,7 +2,7 @@ import sqlite3
 from pathlib import Path
 from typing import Optional
 from database.database import get_connection
-from features.dashboard.model import DashboardStats
+from features.dashboard.model import DashboardStats, StudentGradeRow
 
 
 class DashboardRepository:
@@ -24,3 +24,25 @@ class DashboardRepository:
                 )
         except sqlite3.Error:
             return DashboardStats(total_students=0, total_grades=0, average_score=0.0)
+
+    def get_student_grade_overview(self) -> list[StudentGradeRow]:
+        kwargs = {"db_path": self.db_path} if self.db_path else {}
+        try:
+            with get_connection(**kwargs) as conn:
+                rows = conn.execute(
+                    "SELECT s.student_id, s.name, g.subject, g.score "
+                    "FROM students AS s "
+                    "LEFT JOIN grades AS g ON g.student_id = s.student_id "
+                    "ORDER BY s.name COLLATE NOCASE, g.subject COLLATE NOCASE"
+                ).fetchall()
+                return [
+                    StudentGradeRow(
+                        student_id=row["student_id"],
+                        name=row["name"],
+                        subject=row["subject"] or "No grades yet",
+                        score=row["score"],
+                    )
+                    for row in rows
+                ]
+        except sqlite3.Error as err:
+            raise RuntimeError(f"Could not load the student grade overview: {err}") from err

@@ -112,10 +112,66 @@ QLabel#authSubtitle {
     font-size: 13px;
 }
 
+QTabWidget#authTabs::pane {
+    border: 1px solid #263B59;
+    border-radius: 9px;
+    top: -1px;
+}
+
+QTabWidget#authTabs QTabBar::tab {
+    background-color: #0B1526;
+    color: #8FA5C2;
+    border: 1px solid #263B59;
+    padding: 9px 18px;
+    min-width: 74px;
+}
+
+QTabWidget#authTabs QTabBar::tab:selected {
+    background-color: #173556;
+    color: #DFF5FF;
+    border-bottom-color: #173556;
+}
+
+QLabel#studentPortalMetric {
+    color: #7DD3FC;
+    font-size: 11px;
+    font-weight: 700;
+}
+
 QFrame#sidebar {
     background-color: #0F1A2D;
     border: 1px solid #1D2C45;
     border-radius: 20px;
+}
+
+QWidget#adminWorkspace QFrame#sidebar {
+    border-color: #315B85;
+}
+
+QWidget#teacherWorkspace QFrame#sidebar {
+    border-color: #28614F;
+}
+
+QWidget#studentWorkspace QFrame#sidebar {
+    border-color: #594A86;
+}
+
+QWidget#adminWorkspace QPushButton#navButton:checked {
+    background-color: #173556;
+    color: #DFF5FF;
+    border-color: #28527D;
+}
+
+QWidget#teacherWorkspace QPushButton#navButton:checked {
+    background-color: #15392F;
+    color: #D9FBEA;
+    border-color: #28614F;
+}
+
+QWidget#studentWorkspace QPushButton#navButton:checked {
+    background-color: #30274D;
+    color: #EEE7FF;
+    border-color: #594A86;
 }
 
 QFrame#cardContainer {
@@ -328,12 +384,22 @@ QPushButton:pressed {
 
 QPushButton#primaryButton {
     background-color: #2563EB;
+    border-color: #3B82F6;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+QPushButton#primaryButton:hover {
+    background-color: #3478F2;
+    border-color: #60A5FA;
 }
 
 QPushButton#secondaryButton {
     background-color: #172943;
     color: #C9D9EA;
     border: 1px solid #2A4666;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 QPushButton#secondaryButton:hover {
@@ -366,6 +432,8 @@ QPushButton#dangerButton {
     background-color: #4A202A;
     color: #FDA4AF;
     border: 1px solid #71313D;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 QPushButton#dangerButton:hover {

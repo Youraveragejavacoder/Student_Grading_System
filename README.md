@@ -20,10 +20,12 @@ The system addresses the need for a simple and organized alternative to manually
 
 ### Authentication
 
-- User registration with username and password validation.
-- User login and logout.
+- Fixed administrator login using the `Admin` username.
+- Teacher registration with a full name, username, and password.
+- Student registration using a Student ID and full name, followed by ID-only sign-in.
+- User login and logout with role-specific workspaces.
 - SHA-256 password hashing before passwords are stored.
-- Role information for administrators, teachers, and students.
+- One administrator account, teacher accounts, and student profiles.
 
 ### Student Management
 
@@ -31,6 +33,7 @@ The system addresses the need for a simple and organized alternative to manually
 - Require newly added student IDs to use the current calendar year.
 - Display all students in a searchable table.
 - Search for a student by Student ID.
+- Allow teachers to add students while preventing them from editing or deleting student records.
 - Update a student's name.
 - Permanently delete a student and all related grade records.
 - Clear form inputs without changing saved records.
@@ -111,6 +114,8 @@ Project in python/
 - `main.py` creates the application, database, repositories, services, and main window.
 - `database/database.py` creates the SQLite database connection and validates the database schema.
 - `features/Auth/` contains authentication models, database operations, business logic, and login or registration views.
+- `features/dashboard/teachers.py` contains the administrator's teacher-account management screen.
+- `features/students/portal.py` contains the student's read-only personal gradebook.
 - `features/students/` contains student validation, student database operations, student logic, and the student management view.
 - `features/grades/` contains grade validation, grade database operations, grade logic, and the grade management view.
 - `features/dashboard/` contains dashboard statistics, role permissions, the main application window, and side notifications.
@@ -161,8 +166,8 @@ The application automatically creates `grading_system.db` in the project folder 
 ## How to Use the System
 
 1. Start the application with `python main.py`.
-2. Create an account from the registration screen, or sign in with an existing account.
-3. Use the sidebar to open the Dashboard, Students, or Grades section.
+2. Sign in as administrator with username `Admin` and password `Akiru123`, register as a teacher, or register/sign in as a student using a Student ID.
+3. Use the sidebar pages available to your role. Administrators manage the system, teachers manage grades, and students see only their own gradebook.
 4. In **Students**, enter a Student ID such as `12345-2026` and a full name, then select **Add student**.
 5. Select a student row to populate the form when updating or deleting a student.
 6. In **Grades**, enter the student's ID and select **Load grades**.
@@ -172,6 +177,8 @@ The application automatically creates `grading_system.db` in the project folder 
 10. Use **Refresh metrics** on the Dashboard to update the displayed statistics.
 
 Deleting a student permanently removes the student and all grades associated with that Student ID. The Grades view also clears matching rows immediately when the deletion occurs.
+
+**Current limitation:** Teacher accounts currently share the same student and grade records. Records are not assigned to individual teachers yet, so all teachers can see the same school data, including students added by other teachers.
 
 ## OOP Implementation
 
@@ -229,7 +236,7 @@ The system uses one SQLite database named `grading_system.db`. The database path
 | `id` | Auto-incrementing primary key |
 | `username` | Unique username |
 | `password` | Hashed password |
-| `role` | User role, such as `admin`, `teacher`, or `student` |
+| `role` | Staff role: `admin` or `teacher` |
 
 #### `students`
 
@@ -237,6 +244,8 @@ The system uses one SQLite database named `grading_system.db`. The database path
 | --- | --- |
 | `student_id` | Primary key using the `00000-YYYY` format |
 | `name` | Student's full name |
+
+Students register their Student ID and name in this table and use the ID for student access.
 
 #### `grades`
 
@@ -248,9 +257,19 @@ The system uses one SQLite database named `grading_system.db`. The database path
 
 The `grades` table uses a composite primary key made from `student_id` and `subject`, so a student cannot have two grade records for the same subject. The foreign key uses `ON DELETE CASCADE`, so grades are removed when their student is deleted.
 
+#### `teachers`
+
+Teacher profile names and usernames are kept in this table. The username references the matching teacher login in `users`.
+
+| Column | Description |
+| --- | --- |
+| `teacher_id` | Auto-incrementing primary key |
+| `username` | Unique teacher username linked to `users.username` |
+| `name` | Teacher's display name |
+
 ### Database Operations
 
-- **Create:** Creates users, students, and grades tables when the application starts. Repositories insert new users, students, and grades.
+- **Create:** Creates users, teachers, students, and grades tables when the application starts. Repositories insert teacher accounts, student profiles, and grade records.
 - **Read:** Retrieves one user, student, or grade; lists all students; loads all grades for a student; and calculates dashboard statistics.
 - **Update:** Changes a student's name or updates a grade score.
 - **Delete:** Removes a grade or permanently removes a student and all related grades.
